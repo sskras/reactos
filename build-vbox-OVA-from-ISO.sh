@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ISO_URL="https://sourceforge.net/projects/reactos/files/ReactOS/0.4.14/ReactOS-0.4.14-iso.zip/download?use_mirror=netix"
+ISO_URL="https://sourceforge.net/projects/reactos/files/ReactOS/0.4.14/ReactOS-0.4.14-live.zip/download?use_mirror=netix"
 VM_NAME="ReactOS-0.4.14-LiveCD"
 
 shopt -s lastpipe
@@ -48,6 +48,9 @@ VBoxManage showvminfo ${VM_NAME} | grep -i storage
 print - Attaching ISO:
 VBoxManage storageattach ${VM_NAME} --storagectl "ReactOS SATA controller" --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
 VBoxManage showvminfo --details ${VM_NAME} | grep "^ReactOS SATA controller"
+
+print - Starting VM:
+VBoxManage startvm ${VM_NAME}
 
 print "Press <Enter> to finish"
 read
