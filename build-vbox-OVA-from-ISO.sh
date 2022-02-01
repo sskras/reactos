@@ -35,6 +35,9 @@ VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ -
 print - Listing VMs:
 VBoxManage list vms
 
+print - VM settings:
+VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory
+
 print "Press <Enter> to finish"
 read
 
