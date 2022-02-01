@@ -5,6 +5,12 @@ VM_NAME="ReactOS-0.4.14-LiveCD"
 
 shopt -s lastpipe
 
+function print () {
+    echo
+    echo $*
+    echo
+}
+
 ISO_ZIP="${ISO_URL%/*}"
 ISO_ZIP="${ISO_ZIP##*/}"
 # TODO: either use ${ISO_FILE} as the made up output filename,
@@ -28,6 +34,9 @@ VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ -
 
 echo; echo - Listing VMs:
 VBoxManage list vms
+
+print "Press <Enter> to finish"
+read
 
 echo; echo - Destroying VM:
 VBoxManage unregistervm ${VM_NAME} --delete
