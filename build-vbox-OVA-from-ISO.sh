@@ -11,6 +11,10 @@ function print () {
     echo
 }
 
+function colorize () {
+    cat - | grep --color -w -e ^ -e "$*"
+}
+
 ISO_ZIP="${ISO_URL%/*}"
 ISO_ZIP="${ISO_ZIP##*/}"
 # TODO: either use ${ISO_FILE} as the made up output filename,
@@ -24,13 +28,12 @@ print - Extracting:
 bsdtar -tvf ${ISO_ZIP} \
         | awk '/iso$/ {$1=$2=$3=$4=$5=$6=$7=$8=""; print}' \
         | read ISO_FILE
-bsdtar -xvkf ${ISO_ZIP} \
-        |& grep --color -e ^ -e "${ISO_FILE}"
+bsdtar -xvkf ${ISO_ZIP} |& colorize "${ISO_FILE}"
 ls -l "${ISO_FILE}"
 
 print - Creating VM:
 VBoxManage list vms
-VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register
+VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize "${VM_NAME}"
 
 print - Listing VMs:
 VBoxManage list vms
