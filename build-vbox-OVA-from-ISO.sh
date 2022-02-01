@@ -41,6 +41,14 @@ VBoxManage list vms
 print - VM settings:
 VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory
 
+print - Adding SATA:
+VBoxManage storagectl ${VM_NAME} --name "ReactOS SATA controller" --add sata --portcount 2 --bootable on
+VBoxManage showvminfo ${VM_NAME} | grep -i storage
+
+print - Attaching ISO:
+VBoxManage storageattach ${VM_NAME} --storagectl "ReactOS SATA controller" --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
+VBoxManage showvminfo --details ${VM_NAME} | grep "^ReactOS SATA controller"
+
 print "Press <Enter> to finish"
 read
 
