@@ -12,7 +12,7 @@ function print () {
 }
 
 function colorize () {
-    cat - | grep --color -w -e ^ -e "$*"
+    cat - | grep --color -e "^" "$@"
 }
 
 ISO_ZIP="${ISO_URL%/*}"
@@ -28,12 +28,12 @@ print - Extracting:
 bsdtar -tvf ${ISO_ZIP} \
         | awk '/iso$/ {$1=$2=$3=$4=$5=$6=$7=$8=""; print}' \
         | read ISO_FILE
-bsdtar -xvkf ${ISO_ZIP} |& colorize "${ISO_FILE}"
+bsdtar -xvkf ${ISO_ZIP} |& colorize -e "${ISO_FILE}"
 ls -l "${ISO_FILE}"
 
 print - Creating VM:
 VBoxManage list vms
-VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize "${VM_NAME}"
+VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize -e "${VM_NAME}"
 
 print - Listing VMs:
 VBoxManage list vms
@@ -48,6 +48,9 @@ VBoxManage showvminfo ${VM_NAME} | grep -i storage
 print - Attaching ISO:
 VBoxManage storageattach ${VM_NAME} --storagectl "ReactOS SATA controller" --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
 VBoxManage showvminfo --details ${VM_NAME} | grep "^ReactOS SATA controller"
+
+print - VM net config:
+VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "MAC: [^,]\+" -e "Type: [^,]\+"
 
 print - Starting VM:
 VBoxManage startvm ${VM_NAME}
