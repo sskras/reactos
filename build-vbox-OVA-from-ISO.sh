@@ -65,3 +65,8 @@ until $(VBoxManage showvminfo ${VM_NAME} | grep -q powered.off); do echo -n ".";
 
 print - Destroying VM:
 VBoxManage unregistervm ${VM_NAME} --delete
+#VBoxManage unregistervm ${VM0}
+#rm -rv ${BASE_DIR}/VMs/${VM0}
+
+print - Listing VMs:
+VBoxManage list vms
