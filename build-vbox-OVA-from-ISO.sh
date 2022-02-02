@@ -29,32 +29,32 @@ print - Extracting:
 bsdtar -tvf ${ISO_ZIP} \
         | awk '/iso$/ {$1=$2=$3=$4=$5=$6=$7=$8=""; print}' \
         | read ISO_FILE
-bsdtar -xvkf ${ISO_ZIP} |& colorize -e "${ISO_FILE}"
+bsdtar -xvkf ${ISO_ZIP} |& colorize -e ${ISO_FILE}
 ls -l "${ISO_FILE}"
 
 print - Creating VM:
 VBoxManage list vms
-VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize -e "${VM_NAME}"
+VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize -e ${VM_NAME}
 
 print - Listing VMs:
-VBoxManage list vms
+VBoxManage list vms | colorize -e ${VM_NAME}
 
 print - VM settings:
 VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory
 
 print - Adding SATA:
 VBoxManage storagectl ${VM_NAME} --name ${SATA_NAME} --add sata --portcount 2 --bootable on
-VBoxManage showvminfo ${VM_NAME} | grep -i storage
+VBoxManage showvminfo ${VM_NAME} | grep -i storage | colorize -e ${SATA_NAME}
 
 print - Attaching ISO:
 VBoxManage storageattach ${VM_NAME} --storagectl ${SATA_NAME} --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
-VBoxManage showvminfo --details ${VM_NAME} | grep "^${SATA_NAME}"
+VBoxManage showvminfo --details ${VM_NAME} | grep "^${SATA_NAME}" | colorize -e ${SATA_NAME} -e "${ISO_FILE}"
 
 print - VM net config:
-VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "MAC: [^,]\+" -e "Type: [^,]\+"
+VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "^NIC \+[0-9]\+" -e "MAC: [^,]\+" -e "Type: [^,]\+"
 
 print - Starting VM:
-VBoxManage startvm ${VM_NAME}
+VBoxManage startvm ${VM_NAME} | colorize -e ${VM_NAME}
 
 print "Press <Enter> to finish"
 read
