@@ -2,6 +2,7 @@
 
 ISO_URL="https://sourceforge.net/projects/reactos/files/ReactOS/0.4.14/ReactOS-0.4.14-live.zip/download?use_mirror=netix"
 VM_NAME="ReactOS-0.4.14-LiveCD"
+SATA_NAME="ReactOS-SATA-controller"
 
 shopt -s lastpipe
 
@@ -42,12 +43,12 @@ print - VM settings:
 VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory
 
 print - Adding SATA:
-VBoxManage storagectl ${VM_NAME} --name "ReactOS SATA controller" --add sata --portcount 2 --bootable on
+VBoxManage storagectl ${VM_NAME} --name ${SATA_NAME} --add sata --portcount 2 --bootable on
 VBoxManage showvminfo ${VM_NAME} | grep -i storage
 
 print - Attaching ISO:
-VBoxManage storageattach ${VM_NAME} --storagectl "ReactOS SATA controller" --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
-VBoxManage showvminfo --details ${VM_NAME} | grep "^ReactOS SATA controller"
+VBoxManage storageattach ${VM_NAME} --storagectl ${SATA_NAME} --port 0 --device 0 --type dvddrive --medium ${ISO_FILE}
+VBoxManage showvminfo --details ${VM_NAME} | grep "^${SATA_NAME}"
 
 print - VM net config:
 VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "MAC: [^,]\+" -e "Type: [^,]\+"
