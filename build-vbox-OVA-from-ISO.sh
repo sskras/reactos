@@ -58,5 +58,9 @@ VBoxManage startvm ${VM_NAME}
 print "Press <Enter> to finish"
 read
 
+print - Powering VM off:
+VBoxManage controlvm ${VM_NAME} poweroff
+until $(VBoxManage showvminfo ${VM_NAME} | grep -q powered.off); do echo -n "."; sleep 1; done; sleep 2
+
 print - Destroying VM:
 VBoxManage unregistervm ${VM_NAME} --delete
