@@ -40,7 +40,7 @@ print - Listing VMs:
 VBoxManage list vms | colorize -e ${VM_NAME}
 
 print - VM settings:
-VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory
+VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory | colorize -e '[0-9MB]$' -e ''
 
 print - Adding SATA:
 VBoxManage storagectl ${VM_NAME} --name ${SATA_NAME} --add sata --portcount 2 --bootable on
@@ -70,3 +70,29 @@ VBoxManage unregistervm ${VM_NAME} --delete
 
 print - Listing VMs:
 VBoxManage list vms
+
+exit
+
+VBoxManage natnetwork add --netname "NAT-network-OAM" --network "10.1.1.0/24" --enable
+VBoxManage modifyvm ${VM0} --nic1 natnetwork --natnetwork1 "NAT-network-OAM"
+VBoxManage showvminfo ${VM0} | grep "NIC"
+
+VBoxManage modifyvm ${VM0} --uart1 ${UART_I_O_PORT} ${UART_IRQ} --uartmode1 tcpserver ${UART_TCP_PORT}
+VBoxManage showvminfo ${VM0} | grep "UART"
+VBoxManage controlvm ${VM0} pause
+VBox_setup_serial_console ${VM0}
+
+VBoxManage showmediuminfo disk "${VDI_FILE}" \
+        | awk '/^UUID/ {print $2}' \
+        | read VDI_UUID
+VBoxManage showmediuminfo disk "${VDI_FILE}" #\
+       #| grep --color -e $ -e "${VDI_UUID}"
+
+
+VBoxManage dhcpserver remove --network "NAT-network-OAM"
+VBoxManage natnetwork remove --netname "NAT-network-OAM"
+
+# leftover
+
+VBoxManage modifyvm ${VM0} --cpus ${VM_CPUS} --memory ${VM_RAM}
+VBoxManage showvminfo ${VM0} | grep -e CPUs -e Memory
