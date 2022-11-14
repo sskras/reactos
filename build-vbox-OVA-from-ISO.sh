@@ -5,6 +5,7 @@ VM_NAME="ReactOS-0.4.14-LiveCD"
 SATA_NAME="ReactOS-SATA-controller"
 
 shopt -s lastpipe
+set -e
 
 function print () {
     echo
