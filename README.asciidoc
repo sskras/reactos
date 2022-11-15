@@ -1,6 +1,14 @@
-# ReactOS run
+# Personal ReactOS things
 
-A sandbox to make running ReactOS easier.
+
+## Testing
+
+### In VM
+
+#### Using VirtualBox
+
+I am going to create a shell script to build .ova file from .iso file.
+
 
 ## License
 
