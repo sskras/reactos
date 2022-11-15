@@ -1,0 +1,4 @@
+# ReactOS run
+
+A sandbox to make running ReactOS easier.
+
