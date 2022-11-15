@@ -1,9 +1,0 @@
-# Personal ReactOS things
-
-## Testing
-
-### In VM
-
-#### Using VirtualBox
-
-I am going to create a shell script to build .ova file from .iso file.
