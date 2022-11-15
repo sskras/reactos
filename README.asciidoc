@@ -2,3 +2,19 @@
 
 A sandbox to make running ReactOS easier.
 
+## License
+
+<<LICENSE#,Blue Oak Model License>> (Version 1.0.0) -
+a https://writing.kemitchell.com/2019/03/09/Deprecation-Notice.html[modern alternative] to the MIT license.  +
++++ <sub> +++
+(The above short license description comes via
+https://github.com/git-learning-game/git-hydra/commit/af2c36a14505524c513b4e3afc7062130824c0f3#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5[git-learning-game/git-hydra@af2c36a])
++++ </sub> +++
+
+It is supposed to be a pleasant read for both an IT person and an
+https://writing.kemitchell.com/living/Types-of-Lawyers.html#transactional-lawyers[IP lawyer too, be it]:
+
+* a Copyright Lawyer,
+* a Trademark Lawyer, or
+* a Patent Prosecutor.
+
