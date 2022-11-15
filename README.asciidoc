@@ -20,7 +20,7 @@ https://github.com/git-learning-game/git-hydra/commit/af2c36a14505524c513b4e3afc
 +++ </sub> +++
 
 It is supposed to be a pleasant read for both an IT person and an
-https://writing.kemitchell.com/living/Types-of-Lawyers.html#transactional-lawyers[IP lawyer too, be it]:
+https://writing.kemitchell.com/living/Types-of-Lawyers.html#transactional-lawyers[I.P. lawyer too], be it:
 
 * a Copyright Lawyer,
 * a Trademark Lawyer, or
