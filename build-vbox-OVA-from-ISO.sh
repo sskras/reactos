@@ -26,7 +26,8 @@ ISO_ZIP="${ISO_ZIP##*/}"
 #       or just calculat it from the `wget` output in some way:
 
 print - Retrieving:
-curl -# -L -N -R -o ${ISO_ZIP} -C - ${ISO_URL}
+curl -# -L -N -R -o ${ISO_ZIP} -C - ${ISO_URL} \
+	|| true  # Work around SF.net redirecting a request to resume a download of the already complete file to some sorry page.
 ls -l "${ISO_ZIP}"
 
 print - Extracting:
