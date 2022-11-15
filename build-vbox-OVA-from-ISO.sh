@@ -26,7 +26,7 @@ ISO_ZIP="${ISO_ZIP##*/}"
 #       or just calculat it from the `wget` output in some way:
 
 print - Retrieving:
-wget -nv --show-progress -c --content-disposition ${ISO_URL}
+curl -# -L -N -R -o ${ISO_ZIP} -C - ${ISO_URL}
 ls -l "${ISO_ZIP}"
 
 print - Extracting:
