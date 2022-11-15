@@ -17,7 +17,7 @@ function print () {
 }
 
 function colorize () {
-    cat - | grep --color -e "^" "$@"
+    grep --color -E -e "^" "$@"
 }
 
 ISO_ZIP="${ISO_URL%/*}"
@@ -44,7 +44,7 @@ print - Listing VMs:
 VBoxManage list vms | colorize -e ${VM_NAME}
 
 print - VM settings:
-VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory | colorize -e '[0-9MB]$' -e ''
+VBoxManage showvminfo ${VM_NAME} | grep -e CPUs -e Memory | colorize -e '[0-9MB]+$'
 
 print - Adding SATA:
 VBoxManage storagectl ${VM_NAME} --name ${SATA_NAME} --add sata --portcount 2 --bootable on
@@ -55,7 +55,7 @@ VBoxManage storageattach ${VM_NAME} --storagectl ${SATA_NAME} --port 0 --device 
 VBoxManage showvminfo --details ${VM_NAME} | grep "^${SATA_NAME}" | colorize -e ${SATA_NAME} -e "${ISO_FILE}"
 
 print - VM net config:
-VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "^NIC \+[0-9]\+" -e "MAC: [^,]\+" -e "Type: [^,]\+"
+VBoxManage showvminfo ${VM_NAME} | awk '/^NIC/ && !/^NIC .* disabled/' | colorize -e "^NIC +[0-9]+" -e "MAC: [^,]+" -e "Type: [^,]+"
 
 print - Starting VM:
 VBoxManage startvm ${VM_NAME} | colorize -e ${VM_NAME}
