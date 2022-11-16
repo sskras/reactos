@@ -40,7 +40,7 @@ ls -l "${ISO_FILE}"
 
 print - Creating VM:
 VBoxManage list vms
-VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder VMs/ --register | colorize -e ${VM_NAME}
+VBoxManage createvm --name ${VM_NAME} --ostype "Windows2003" --basefolder "${PWD}/VMs" --register | colorize -e ${VM_NAME}
 
 print - Listing VMs:
 VBoxManage list vms | colorize -e ${VM_NAME}
