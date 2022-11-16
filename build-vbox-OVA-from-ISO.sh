@@ -3,7 +3,8 @@
 # SPDX-FileCopyrightText: 2022 Saulius Krasuckas <saulius2@ar-fi.lt> | sskras
 # SPDX-License-Identifier: BlueOak-1.0.0
 
-ISO_URL="https://sourceforge.net/projects/reactos/files/ReactOS/0.4.14/ReactOS-0.4.14-live.zip/download?use_mirror=netix"
+ ISO_URL="https://sourceforge.net/projects/reactos/files/ReactOS/0.4.14/ReactOS-0.4.14-live.zip/download?use_mirror=netix"
+#ISO_URL="http://www.cs.tohoku-gakuin.ac.jp/pub/Linux/ReactOS/ReactOS-0.4.14-live.zip"
 VM_NAME="ReactOS-0.4.14-LiveCD"
 SATA_NAME="ReactOS-SATA-controller"
 
